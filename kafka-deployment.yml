@@ -35,7 +35,7 @@ spec:
            next_pod_number=$((POD_NUMBER + 2))
            new_advertised_listeners="advertised.listeners=PLAINTEXT://172.20.0.$next_pod_number:9092"
            sed -i "s/^broker\.id=.*/broker\.id=$POD_NUMBER/" /opt/kafka/config/server.properties
-           sed -i "s/^zookeeper\.connect=.*/zookeeper\.connect=10.43.35.107:2181/" /opt/kafka/config/server.properties
+           sed -i "s/^zookeeper\.connect=.*/zookeeper\.connect={zookeeper-service}:2181/" /opt/kafka/config/server.properties
            sed -i "s/^#listeners=PLAINTEXT:\/\/:9092/listeners=PLAINTEXT:\/\/:9092/" /opt/kafka/config/server.properties
            sed -i "s/^#advertised.listeners=PLAINTEXT:\/\/your\.host\.name:9092/advertised.listeners=PLAINTEXT:\/\/172.20.0.$next_pod_number:9092/" /opt/kafka/config/server.properties
            sleep 2
