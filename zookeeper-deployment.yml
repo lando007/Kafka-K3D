@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: zookeeper
+  name: zookeeper
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zookeeper
+  template:
+    metadata:
+      labels:
+        app: zookeeper
+    spec:
+      containers:
+        - image: wurstmeister/zookeeper
+          imagePullPolicy: IfNotPresent
+          name: zookeeper
+          ports:
+            - containerPort: 2181
+          volumeMounts:
+            - name: data
+              mountPath: /data
+              subPath: data
+            - name: data
+              mountPath: /datalog
+              subPath: datalog
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
