@@ -1,22 +1,35 @@
 # Kafka-K3D
 
-"This project is only a rough draft for the application. It will only be able to be deployed locally at this time and might have issues with a load balancer depending on the user's environment.
+# Project Overview
 
-Platform Used:
-Ubuntu WSL Version 0.2.1
-https://learn.microsoft.com/en-us/windows/wsl/install-manual
-k3d version v5.4.9
-https://k3d.io/v5.6.0/
+This project is a rough draft for the application. It can be deployed locally at this time but might have issues with a load balancer depending on the user's environment.
 
-Purpose:
-Apache Kafka is a distributed event store and stream-processing platform that is open-source with easy-to-produce and consume messages from. This application helps deploy these services locally and test the production and consumption of each topic created.
+## Platform Used
 
-Installation
-Prerequisites
-1: Install WSL onto a Windows machine and configure it to desired specifications.
-2: Install k3d onto the WSL installation and configure it as needed.
-Deployment:
-1: Run this command "k3d cluster create --api-port 6550 -p "9092:9092@loadbalancer" --agents 3". Depending on what the user wants, they can choose the value for the API port (6550) or load balancer values (9092). I have chosen these values as they were examples many other people have used, and normally Kafka uses 9092 as the port it communicates on. By running this command, it will create a lightweight Kubernetes environment for the Kafka deployment to run on.
+- Ubuntu WSL Version 0.2.1
+  - [WSL Installation Guide](https://learn.microsoft.com/en-us/windows/wsl/install-manual)
+- k3d version v5.4.9
+  - [k3d Installation](https://k3d.io/v5.6.0/)
+
+## Purpose
+
+Apache Kafka is a distributed event store and stream-processing platform that is open-source, allowing for easy production and consumption of messages. This application helps deploy these services locally and test the production and consumption of each topic created.
+
+## Installation
+
+### Prerequisites
+
+1. Install WSL on a Windows machine and configure it to your desired specifications.
+2. Install k3d on the WSL installation and configure it as needed.
+
+### Deployment
+
+To create a Kubernetes environment and deploy Kafka, follow these steps:
+
+1. Run this command to create a Kubernetes environment with k3d:
+
+   ```shell
+   k3d cluster create --api-port 6550 -p "9092:9092@loadbalancer" --agents 3. Depending on what the user wants, they can choose the value for the API port (6550) or load balancer values (9092). I have chosen these values as they were examples many other people have used, and normally Kafka uses 9092 as the port it communicates on. By running this command, it will create a lightweight Kubernetes environment for the Kafka deployment to run on.
 2: Run the command kubectl apply -f zookeeper-service.yml. This will deploy the services for the ZooKeeper pod.
 3: Run the command kubectl apply -f zookeeper-deployment.yml. This will deploy the ZooKeeper deployment.
 4: Run the command kubectl apply -f kafka-multi-lb.yml. This will create the load balancers for each of the 3 Kafka brokers created.
